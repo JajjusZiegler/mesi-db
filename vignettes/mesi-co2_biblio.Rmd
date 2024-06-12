@@ -30,8 +30,10 @@ head(mesi_bibliography)
 df_experiments_co2 <- df_experiments_co2 |>
   left_join(mesi_bibliography)|>
   unique()
+head(df_experiments_co2)
 
 unique_citations <- df_experiments_co2 |> distinct(citation, .keep_all = TRUE)
 
+#write.csv(unique_citations, "data/unique_citations_co2.csv", row.names = FALSE)
 
 ```
