@@ -1,18 +1,16 @@
----
-title: "MESI CO2 Manipulation Bibliography"
-author: "Jan Ziegler"
-date: "`r Sys.Date()`"
-output: html_document
+------------------------------------------------------------------------
+
+title: "MESI CO2 Manipulation Bibliography" author: "Jan Ziegler" date: "`r Sys.Date()`" output: html_document
 
 ```{r, warning=FALSE}
 library(tidyverse)   # for working with ease
 
 # Set the working directory according to your file location !!! This link has to be checked!
-setwd("~/GECO_Bern/projects/mesi-db")
+#setwd("~/home/mesi-db")
 
 # Read in the CSV files
-mesi_bibliography <- read.csv("~/GECO_Bern/projects/mesi-db/data/mesi_bibliography.csv")
-df_experiments_co2 <- read.csv("~/GECO_Bern/projects/mesi-db/data/df_experiments_co2.csv")
+mesi_bibliography <- read.csv("~/mesi-db/data/mesi_bibliography.csv")
+df_experiments_co2 <- read.csv("~/mesi-db/data/df_experiments_co2.csv")
 
 # Print first few rows of each data frame to check the data
 head(mesi_bibliography)
@@ -36,4 +34,9 @@ unique_citations <- df_experiments_co2 |> distinct(citation, .keep_all = TRUE)
 
 #write.csv(unique_citations, "data/unique_citations_co2.csv", row.names = FALSE)
 
+#read in zotero bibliographie as csv to check for missing citations 
+zotero_bib<- read.csv("~/mesi-db/data/mesi_cite-key.csv")
+
+missing_citations <- unique_citations |>
+  anti_join(zotero_bib, by = c('citation'= 'citation_key'))
 ```
